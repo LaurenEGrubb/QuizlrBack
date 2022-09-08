@@ -23,19 +23,20 @@ const GetProfiles = async (req, res) => {
   }
 }
 
-const GetUserProfile = async (req, res) => {
-  try {
-    const userAndSets = await User.findByPk(req.params.user_id, {
-      include: [{ model: User, as: 'users' }]
-    })
-    res.send(userAndSets)
-  } catch (error) {
-    throw error
+const GetUserById = async (req, res) => {
+    try {
+      let userId = parseInt(req.params.user_id)
+      let user = await User.findAll({
+        where: { id: userId }
+      })
+      res.send(user)
+    } catch (error) {
+      throw error
+    }
   }
-}
 
 module.exports = {
   GetProfiles,
-  GetUserProfile,
+  GetUserById,
   CreateUser
 }
