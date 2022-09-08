@@ -13,7 +13,7 @@ const GetFlashcardDetails = async (req, res) => {
   const CreateFlashcard = async (req, res) => {
     try {
       let setId = parseInt(req.params.set_id)
-      let SetBody = {
+      let setBody = {
         setId,
         ...req.body
       }

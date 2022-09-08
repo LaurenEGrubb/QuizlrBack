@@ -25,6 +25,7 @@
     "morgan": "^1.10.0",
     "mysql2": "^2.3.3",
     "pg": "^8.8.0",
+    "routes": "^2.1.0",
     "sequelize": "^6.21.4"
   },
   "devDependencies": {

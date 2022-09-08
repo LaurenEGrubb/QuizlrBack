@@ -15,9 +15,11 @@ const GetSetDetails = async (req, res) => {
       let userId = parseInt(req.params.user_id)
       let SetBody = {
         userId,
-        ...req.body
+        ...req.body,
+        setId: req.query.userId,
+        setId: req.query.setname
       }
-      let set = await Set.create(setBody)
+      let set = await Set.create(SetBody)
       res.send(set)
     } catch (error) {
       throw error
