@@ -9,6 +9,17 @@ const GetSetDetails = async (req, res) => {
       throw error
     }
   }
+  const GetSetById = async (req, res) => {
+    try {
+      let setId = parseInt(req.params.set_id)
+      let set = await Set.findAll({
+        where: { id: setId }
+      })
+      res.send(set)
+    } catch (error) {
+      throw error
+    }
+  }
   
   const CreateSet = async (req, res) => {
     try {
@@ -53,6 +64,7 @@ const GetSetDetails = async (req, res) => {
     GetSetDetails,
     CreateSet,
     UpdateSet,
-    DeleteSet
+    DeleteSet,
+    GetSetById,
   }
   
