@@ -1,11 +1,11 @@
-require('.env').config()
+require('dotenv').config()
 module.exports = {
   development: {
-    database: '<Your Dev Database>',
+    database: 'quizlrback',
     dialect: 'postgres'
   },
   test: {
-    database: '<Your Database Test Name>',
+    database: 'quizlrback_test',
     dialect: 'postgres'
   },
   production: {
