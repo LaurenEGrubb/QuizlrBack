@@ -1,10 +1,19 @@
 const { User, Set, Flashcard } = require('../models')
 const { Op, literal, fn, col } = require('sequelize')
 
-const GetFlashcardDetails = async (req, res) => {
+// const GetFlashcardDetails = async (req, res) => {
+//     try {
+//       const flashcard = await Flashcard.findByPk(req.params.flashcard_id)
+//       res.send(flashcard.req.body)
+//     } catch (error) {
+//       throw error
+//     }
+//   }
+  const GetFlashcardDetails = async (req, res) => {
     try {
-      const flashcard = await Flashcard.findByPk(req.params.flashcard_id)
-      res.send(flashcard)
+      let flashcardId = parseInt(req.params.flashcard_id)
+      let flashcardDetails = await Flashcard.findAll({ where: { id: flashcardId } })
+      res.send(flashcardDetails)
     } catch (error) {
       throw error
     }
