@@ -1,7 +1,26 @@
 const Router = require('express').Router()
-const UserController = require('../Controllers/UserController')
-const middleware = require('../middleware')
-const AuthController = require('../Controllers/AuthController')
+const UserController = require('../controllers/UserController')
+const middleware = require('../middleware/index')
+const AuthController = require('../controllers/AuthController')
+const { Album, Photo, User } = require('../models')
+
+
+Router.post('/register', async (req, res) => {
+    try {
+      let {  username, password } =
+        req.body
+      const user = await User.create({
+        username,
+        password
+      })
+      res.send(user)
+    } catch (error) {
+      throw error
+    }
+  })
+  
+
+
 
 Router.post('/login', AuthController.Login)
 Router.get('/', UserController.getAllUsers)
@@ -10,13 +29,6 @@ Router.get(
   middleware.stripToken,
   middleware.verifyToken,
   AuthController.CheckSession
-)
-
-Router.put(
-  '/:user_id/profilepic',
-  middleware.stripToken,
-  middleware.verifyToken,
-  AuthController.UpdateProfilePic
 )
 
 Router.get('/:user_id', UserController.getOneUser)
