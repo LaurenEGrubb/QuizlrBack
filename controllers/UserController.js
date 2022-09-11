@@ -1,42 +1,39 @@
-const { User, Set } = require('../models')
+const { User } = require('../models')
 
-
-const CreateUser = async (req, res) => {
-    try {
-      let userId = parseInt(req.params.user_id)
-      let userBody = {
-        userId,
-        ...req.body
-      }
-      let user = await User.create(userBody)
-      res.send(user)
-    } catch (error) {
-      throw error
-    }
-  }
-const GetProfiles = async (req, res) => {
+const getAllUsers = async (req, res) => {
   try {
-    const users = await User.findAll()
-    res.send(users)
+    let allUsers = await User.findAll()
+    res.send(allUsers)
   } catch (error) {
     throw error
   }
 }
 
-const GetUserById = async (req, res) => {
-    try {
-      let userId = parseInt(req.params.user_id)
-      let user = await User.findAll({
-        where: { id: userId }
-      })
-      res.send(user)
-    } catch (error) {
-      throw error
-    }
+const getOneUser = async (req, res) => {
+  try {
+    let user = await User.findByPk(req.params.user_id)
+    res.send(user)
+  } catch (error) {
+    throw error
   }
+}
+
+const updateUser = async (req, res) => {
+  try {
+    let userId = req.params.user_id
+    let updatedUser = await User.update(req.body, {
+      where: {
+        id: userId
+      }
+    })
+    res.send(updatedUser)
+  } catch (error) {
+    throw error
+  }
+}
 
 module.exports = {
-  GetProfiles,
-  GetUserById,
-  CreateUser
+  getOneUser,
+  getAllUsers,
+  updateUser
 }
