@@ -49,8 +49,8 @@ const { Op, literal, fn, col } = require('sequelize')
   const DeleteFlashcard = async (req, res) => {
     try {
       let flashcardId = parseInt(req.params.flashcard_id)
-      await Flashcard.destroy( {  where: { id: flashcardId }})
-      res.send({ message: `Deleted set with an id of ${flashcardId}`})
+      await Flashcard.destroy({ where: { id: flashcardId } })
+      res.send({ message: `Deleted photo with an id of ${flashcardId}`})
     } catch (error) {
       throw error
     }

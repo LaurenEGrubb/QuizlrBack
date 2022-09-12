@@ -38,7 +38,28 @@ Router.post('/register', async (req, res) => {
       
 })
   
-Router.post('/login', AuthController.Login)
+Router.post('/login', async (req, res) => {
+    try {
+        let user = await User.findOne({
+          where: { username: req.body.username },
+          raw: true
+        });
+        if (
+          user &&
+          middleware.comparePassword(user.passwordDigest, req.body.password)
+        ) {
+          let payload = {
+            id: user.id,
+            username: user.username
+          };
+          let token = middleware.createToken(payload);
+          return res.send({ user: payload, token });
+        }
+        res.status(401).send({ status: 'Error', msg: 'Unauthorized' });
+      } catch (error) {
+        throw error;
+      }
+    })
 
 
 Router.get('/', UserController.getAllUsers)
