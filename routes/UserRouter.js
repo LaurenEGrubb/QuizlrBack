@@ -66,8 +66,6 @@ Router.delete('/delete', async (req, res) => {
       }
     })
     
-
-
 Router.get('/', UserController.getAllUsers)
 Router.get(
   '/session',
@@ -76,10 +74,27 @@ Router.get(
 
 Router.get('/:user_id', UserController.getOneUser)
 
-Router.put(
-  '/updatepassword',
-  AuthController.UpdatePassword
-)
+Router.put('/updatepassword', async (req, res) => {
+    try {
+        const { oldPassword, newPassword } = req.body;
+        const user = await User.findOne({ where: { username: req.body.username } });
+        if (
+          user &&
+          (await middleware.comparePassword(
+            user.dataValues.passwordDigest,
+            oldPassword
+          ))
+        ) {
+          let passwordDigest = await middleware.hashPassword(newPassword);
+          await user.update({ passwordDigest });
+          return res.send({ status: 'Ok', payload: user });
+        }
+        res.status(401).send({ status: 'Error', msg: 'Unauthorized' });
+      } catch (error) {
+        throw error;
+      }
+    })
+  
 
 
 Router.get('/:user_id', UserController.getOneUser)
