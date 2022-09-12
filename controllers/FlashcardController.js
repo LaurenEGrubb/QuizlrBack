@@ -50,7 +50,7 @@ const { Op, literal, fn, col } = require('sequelize')
     try {
       let flashcardId = parseInt(req.params.flashcard_id)
       await Flashcard.destroy({ where: { id: flashcardId } })
-      res.send({ message: `Deleted photo with an id of ${flashcardId}`})
+      res.send({ message: `Deleted flashcard with an id of ${flashcardId}`})
     } catch (error) {
       throw error
     }
