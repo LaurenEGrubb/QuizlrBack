@@ -46,6 +46,26 @@ Router.post('/login', async (req, res) => {
         throw error;
       }
     })
+    
+Router.delete('/delete', async (req, res) => {
+    try {
+        const user = await User.findOne({
+          where: { username: req.body.username }
+        });
+    
+        if (
+          user &&
+          (await middleware.comparePassword(user.passwordDigest, req.body.password))
+        ) {
+          await user.destroy();
+          return res.send({ message: 'Deleted this user!' });
+        }
+        res.status(401).send({ status: 'Error', msg: 'Unauthorized' });
+      } catch (error) {
+        throw error;
+      }
+    })
+    
 
 
 Router.get('/', UserController.getAllUsers)
@@ -61,12 +81,6 @@ Router.put(
   AuthController.UpdatePassword
 )
 
-Router.delete(
-    '/delete',
-    middleware.stripToken,
-    middleware.verifyToken,
-    AuthController.DeleteUser
-  )
 
 Router.get('/:user_id', UserController.getOneUser)
 module.exports = Router
