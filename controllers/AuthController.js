@@ -9,7 +9,7 @@ const Login = async (req, res) => {
     });
     if (
       user &&
-      (await middleware.comparePassword(user.passwordDigest, req.body.password))
+      (await middleware.comparePassword(user.password, req.body.password))
     ) {
       let payload = {
         id: user.id,
@@ -91,7 +91,7 @@ const DeleteUser = async (req, res) => {
 
 module.exports = {
   Login,
-  Register,
+//   Register,
   UpdatePassword,
   DeleteUser,
   CheckSession

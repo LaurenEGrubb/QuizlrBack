@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Flashcard.belongsTo(models.Set, { foreignKey: 'setId' })
+      Flashcard.belongsTo(models.Set, { foreignKey: 'setId', as: 'set' })
     }
   }
   Flashcard.init({
