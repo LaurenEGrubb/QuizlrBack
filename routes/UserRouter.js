@@ -2,7 +2,7 @@ const Router = require('express').Router()
 const UserController = require('../controllers/UserController')
 const middleware = require('../middleware/index')
 const AuthController = require('../controllers/AuthController')
-const { Album, Photo, User } = require('../models')
+const { Set, Flashcard, User } = require('../models')
 
 
 Router.post('/register', async (req, res) => {
@@ -21,7 +21,6 @@ Router.post('/register', async (req, res) => {
         } catch (error) {
           throw error;
         }
-      
 })
   
 Router.post('/login', async (req, res) => {
@@ -67,12 +66,17 @@ Router.delete('/delete', async (req, res) => {
     })
     
 Router.get('/', UserController.getAllUsers)
-Router.get(
-  '/session',
-  AuthController.CheckSession
-)
+Router.get('/session',AuthController.CheckSession)
 
-Router.get('/:user_id', UserController.getOneUser)
+Router.get('/:user_id', async (req, res) => {
+   
+        try {
+          let user = await User.findByPk(req.params.user_id)
+          res.send(user)
+        } catch (error) {
+          throw error
+        }
+})
 
 Router.put('/updatepassword', async (req, res) => {
     try {
@@ -95,7 +99,12 @@ Router.put('/updatepassword', async (req, res) => {
       }
     })
   
-
-
-Router.get('/:user_id', UserController.getOneUser)
+Router.get('/:user_id', async (req, res) => {
+        try {
+          let user = await User.findByPk(req.params.user_id)
+          res.send(user)
+        } catch (error) {
+          throw error
+        }
+      },)
 module.exports = Router
