@@ -5,20 +5,6 @@ const AuthController = require('../controllers/AuthController')
 const { Album, Photo, User } = require('../models')
 
 
-// Router.post('/register', async (req, res) => {
-//     try {
-//       let {  username, password } =
-//         req.body
-//       const user = await User.create({
-//         username,
-//         password
-//       })
-//       res.send(user)
-//     } catch (error) {
-//       throw error
-//     }
-//   })
-
 Router.post('/register', async (req, res) => {
         try {
           let { password, username } =
@@ -76,9 +62,11 @@ Router.put(
 )
 
 Router.delete(
-  '/delete',
-  AuthController.DeleteUser
-)
+    '/delete',
+    middleware.stripToken,
+    middleware.verifyToken,
+    AuthController.DeleteUser
+  )
 
 Router.get('/:user_id', UserController.getOneUser)
 module.exports = Router
