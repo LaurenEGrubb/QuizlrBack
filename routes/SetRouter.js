@@ -3,7 +3,8 @@ const controller = require('../controllers/SetController')
 const { Set, Flashcard, User } = require('../models')
 
 
-Router.post('/:userId/create', async (req, res) => {
+Router.post('/create', async (req, res) => {
+    console.log(req.body)
  try {
     let userId = parseInt(req.params.user_id)
     let SetBody = {
@@ -32,13 +33,25 @@ Router.put('/:userId/update/:setid', async (req, res) => {
       }
     }
 )
-Router.get('/:set_id/get', async (req, res) => {
-    try {
-        const set = await Set.findByPk(req.params.set_id)
-        res.send(set)
+Router.get('/', async (req, res) => {
+        try {
+          let sets = await Set.findAll();
+          res.send(sets);
+        } catch (error) {
+          throw error;
+        }
+      });
+
+  Router.get('/details', async (req, res) => {
+   
+      try {
+        let flashcards = await Flashcard.findAll({});
+        res.send(flashcards);
       } catch (error) {
-        throw error
-      }
-    })
+        throw error;
+      }})
+    
+  
+      
 
 module.exports = Router

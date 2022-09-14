@@ -10,14 +10,14 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Set.hasMany(models.Flashcard, { foreignKey: 'setId'})
-      Set.belongsTo(models.User, { foreignKey: 'userId' })
+      Set.hasMany(models.Flashcard, { foreignKey: 'setId', as:'user'})
+      Set.belongsTo(models.User, { foreignKey: 'userId', as:'photos' })
     }
   }
   Set.init({
     setname: DataTypes.STRING,
     userId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       onDelete: 'CASCADE',
       references: {
         model: 'users',
