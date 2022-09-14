@@ -39,21 +39,21 @@ const { Op, literal, fn, col } = require('sequelize')
 //     }
 //   }
   
-  const DeleteSet = async (req, res) => {
-    try {
-      let setId = parseInt(req.params.set_id)
-      await Set.destroy( {  where: { id: setId }})
-      res.send({ message: `Deleted set with an id of ${setId}`})
-    } catch (error) {
-      throw error
-    }
-  }
+  // const DeleteSet = async (req, res) => {
+  //   try {
+  //     let setId = parseInt(req.params.set_id)
+  //     await Set.destroy( {  where: { id: setId }})
+  //     res.send({ message: `Deleted set with an id of ${setId}`})
+  //   } catch (error) {
+  //     throw error
+  //   }
+  // }
   
   module.exports = {
     // GetSetDetails,
     // CreateSet,
     // UpdateSet,
-    DeleteSet,
+    // DeleteSet,
    
   }
   

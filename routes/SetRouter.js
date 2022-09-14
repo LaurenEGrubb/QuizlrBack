@@ -52,6 +52,15 @@ Router.get('/', async (req, res) => {
       }})
     
   
-      
-
+      Router.delete('/delete/:setId', async(req, res) => {
+        try {
+          let del = parseInt(req.params.setId)
+          await Set.destroy({
+            where: { id: req.params.setId }
+          })
+          res.send({ message: `Deleted set with an id of ${del}` })
+        } catch (error) {
+          throw error
+        }
+      })
 module.exports = Router
