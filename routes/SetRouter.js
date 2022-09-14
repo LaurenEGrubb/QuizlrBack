@@ -20,14 +20,14 @@ Router.post('/create', async (req, res) => {
   }
 })
 
-Router.put('/:userId/update/:setid', async (req, res) => {
+Router.put('/:setId', async (req, res) => {
     try {
-        let setId = parseInt(req.params.set_id)
-        let updatedSet = await Set.update(req.body, {
-          where: { id: setId },
-         returning: true 
-        })
-        res.send(updatedSet)
+        
+        let update = await Set.update(
+          { ...req.body },
+          { where: { id: req.params.setId }, returning: true }
+        )
+        res.send(update)
       } catch (error) {
         throw error
       }

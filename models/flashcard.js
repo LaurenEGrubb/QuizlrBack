@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     term: DataTypes.STRING,
     definition: DataTypes.STRING,
     setId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       onDelete: 'CASCADE',
       references: {
         model: 'sets',

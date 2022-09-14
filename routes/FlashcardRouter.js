@@ -21,6 +21,6 @@ Router.post('/:set_id/create', async (req, res) => {
 Router.get('/:flashcard_id/get', controller.GetFlashcardDetails)
 
 Router.put('/:set_id/create/:flashcard_id/update', controller.UpdateFlashcard)
-Router.delete('/:set_id/create/:flashcard_id/delete', controller.DeleteFlashcard)
+Router.delete('/:flashcard_id/delete', controller.DeleteFlashcard)
 // Implement these routes
 module.exports = Router
