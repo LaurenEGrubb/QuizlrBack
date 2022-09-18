@@ -54,11 +54,16 @@ Router.get('/', async (req, res) => {
   
       Router.delete('/delete/:setId', async(req, res) => {
         try {
-          let del = parseInt(req.params.setId)
-          await Set.destroy({
-            where: { id: req.params.setId }
-          })
-          res.send({ message: `Deleted set with an id of ${del}` })
+          let setId = await Set.findOne({where: {id:req.params.setId}})
+          // {parseInt(req.params.set.id)}
+          if (setId) {
+            await setId.destroy()
+            return res.send({ message: `Deleted set with an id of ${setId}`})
+          }
+          // await Set.destroy({
+          //   where: { id: setId }
+          // })
+          // res.send({ message: `Deleted set with an id of ${setId}` })
         } catch (error) {
           throw error
         }
